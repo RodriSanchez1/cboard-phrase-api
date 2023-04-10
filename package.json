@@ -1,0 +1,26 @@
+{
+  "name": "cboard-phrase-api",
+  "version": "0.0.0",
+  "description": "Api for cboard phrase",
+  "scripts": {
+    "start": "node ./api/bin/www",
+    "dev": "set DEBUG=CP & nodemon ./api/bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rodrigo Sanchez",
+  "license": "MIT",
+  "homepage": "https://www.cboard.io",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^2.0.22",
+    "prettier": "2.8.7"
+  }
+}
