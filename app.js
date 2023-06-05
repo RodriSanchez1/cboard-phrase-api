@@ -10,6 +10,8 @@ var createError = require('http-errors');
 
 const userRoutes = require('./api/api-services/User/routes');
 const categoryRoutes = require('./api/api-services/Category/routes');
+const communicatorRoutes = require('./api/api-services/Communicator/routes');
+
 const app = express();
 
 dbConnect();
@@ -20,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/user', userRoutes);
 app.use('/category', categoryRoutes);
+app.use('/communicator', communicatorRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
