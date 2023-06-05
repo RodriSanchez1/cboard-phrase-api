@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { DEFAULT_LANG } = require('../../constants');
+const Communicator = require('../Communicator/model');
+const Category = require('../Category/model');
 const Schema = mongoose.Schema;
 
 const oAuthTypes = ['github', 'twitter', 'facebook', 'google', 'linkedin'];
@@ -174,10 +176,8 @@ userSchema.pre('save', function (next) {
  * Post-save hook
  */
 userSchema.post('save', function (doc, next) {
-  doc
-    .populate('communicators')
-    .populate('categories')
-    .execPopulate()
+  User.populate(doc, { path: 'communicators categories' })
+    //  .execPopulate()
     .then(function () {
       next();
     });
