@@ -9,6 +9,7 @@ const dbConnect = require('./config/db');
 var createError = require('http-errors');
 
 const userRoutes = require('./api/api-services/User/routes');
+const categoryRoutes = require('./api/api-services/Category/routes');
 const app = express();
 
 dbConnect();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/user', userRoutes);
+app.use('/category', categoryRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
