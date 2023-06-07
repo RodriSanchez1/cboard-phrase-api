@@ -11,6 +11,7 @@ var createError = require('http-errors');
 const userRoutes = require('./api/api-services/User/routes');
 const categoryRoutes = require('./api/api-services/Category/routes');
 const communicatorRoutes = require('./api/api-services/Communicator/routes');
+const reportRoutes = require('./api/api-services/Report/routes');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/user', userRoutes);
 app.use('/category', categoryRoutes);
 app.use('/communicator', communicatorRoutes);
+app.use('/reports', reportRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
