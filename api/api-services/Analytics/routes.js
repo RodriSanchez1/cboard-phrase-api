@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { batchGet } = require('./controller');
 
-router.put('/batchGet', batchGet);
+router.post('/batchGet', batchGet);
 
 module.exports = router;
