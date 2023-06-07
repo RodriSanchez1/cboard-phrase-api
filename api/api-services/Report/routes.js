@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { batchGet } = require('./controller');
+const { topUsedSenteces } = require('./controller');
 
-router.put('/', batchGet);
+router.put('/topUsedSentences', topUsedSenteces);
 
 module.exports = router;
