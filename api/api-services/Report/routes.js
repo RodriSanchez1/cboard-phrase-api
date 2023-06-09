@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { topUsedSenteces } = require('./controller');
+const { topUsedSentences } = require('./controller');
 
-router.put('/topUsedSentences', topUsedSenteces);
+router.get('/topUsedSentences', topUsedSentences);
 
 module.exports = router;

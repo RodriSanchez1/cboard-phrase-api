@@ -1,29 +1,53 @@
+const Event = require('../Event/model');
+
 module.exports = {
-  topUsedSenteces,
+  topUsedSentences,
 };
 
-async function topUsedSenteces(req, res) {
+async function topUsedSentences(req, res) {
   try {
-    // boyd de la request:
-    // {
-    //     "userId": "64779dbca096d823263c2cd7",
-    //     "days": 30
-    // }
-    // Los eventos de donde obtener las frases se encuentran en la collection Events.
-    // La consulta debe devolver la cantidad de veces que se a utilizado cada frase (event.label),
-    // y cual es dicha fease, entre la fecha actual y la actual menos los dias especificados en el parametro days
-    // la respuesta debe ser un array de maximo 5 objetos, ordenados de manera desc,
-    // donde cada objeto tiene la siguiente estructura:
-    // [{
-    //   "sentence": "I am a sentence",
-    //   "count": 10
-    // },
-    // {
-    //   "sentence": "I am another sentence",
-    //   "count": 5
-    // } ]
+    const { userId, days, action } = req.query;
 
-    return res.status(200).json();
+    console.log(userId, days, action);
+    const fechaActual = new Date();
+    const fechaInicio = new Date(
+      fechaActual.getTime() - days * 24 * 60 * 60 * 1000
+    );
+    const topUsedSentences = await Event.aggregate([
+      {
+        $match: {
+          userId: userId,
+          time: {
+            $gte: fechaInicio,
+            $lte: fechaActual,
+          },
+          action: action,
+        },
+      },
+      {
+        $group: {
+          _id: '$label',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          sentence: '$_id',
+          count: 1,
+        },
+      },
+      {
+        $sort: {
+          count: -1,
+        },
+      },
+      {
+        $limit: 5,
+      },
+    ]);
+
+    return res.status(200).json({ topUsedSentences });
   } catch (err) {
     return res.status(409).json({
       message: 'Error getting analytics',
